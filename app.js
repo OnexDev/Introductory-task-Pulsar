@@ -1,58 +1,65 @@
-
 const App = Vue.createApp({
   data() {
     return {
-      showModal: false,
+      itemList: [
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Счётчики воды",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+        "Преобразователи интерфейсов Ethernet  RS 485 USB",
+      ],
+      showMenu: false,
     };
   },
   methods: {
-    modalToggle() {
-      this.showModal = !this.showModal;
+    menuToggle() {
+      this.showMenu = !this.showMenu;
+      // console.log(this.showMenu);
     },
-
-  }
-})
-
-// Vue.createApp(App)
-
-App.component("modal", {
-  template: "#modal-template",
-  data(){
-    return{
-      salaryValue:null,
-      annualPayments: [],
-    }
-  },
-  methods:{
-    isNumber(event) {
-      event = (event) ? event : window.event;
-      var charCode = (event.which) ? event.which : event.keyCode;
-      if ((charCode > 31 && (charCode < 48 || charCode > 57)) && charCode !== 46) {
-        event.preventDefault();
-        return false;
-      } else {
-        return true;
-      }
+    splitTo(arr, n) {
+      const numChunks = n;
+      const chunkLen = (arr.length / numChunks) | 0;
+      const chunks = [...Array(numChunks)].map((n, i) => {
+        return arr.slice(
+          i * chunkLen,
+          i === numChunks - 1 ? arr.length : (i + 1) * chunkLen
+        );
+      });
+      return chunks;
     },
   },
-  watch:{
-    salaryValue: function(value){
-      this.annualPayments = [];
-      if (value > 10000){
-        const maxValue = 260000;
-        let count = 0;
-        let taxesDeduction = Math.round((value * 12) * 0.13);
-        while ((count + taxesDeduction) < maxValue){
-          count += taxesDeduction;
-          this.annualPayments.push(taxesDeduction);
-        } 
-        this.annualPayments.push(maxValue - count);
-        console.log(this.annualPayments);
-      }
+});
 
-    }
-  }
-  
+App.component("smenu", {
+  template: "#menu",
+  // data() {},
+  props: ["propItems", "open"],
+  methods: {},
+  watch: {},
+});
+
+App.component("mbutton", {
+  template: "#mbutton",
+  props: { text: String, icon: Boolean },
+  // data() {},
+  methods: {},
+  watch: {},
 });
 
 App.mount("#app");
